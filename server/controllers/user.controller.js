@@ -79,3 +79,25 @@ export async function getCurrentUser(req, res) {
         res.status(500).json({success: false, message: "Error fetching user", error});  
     }
 }
+
+// Update user
+export async function updateProfile(req, res) {
+    const {name, email} = req.body;
+
+    if(!name || !email || !validator.isEmail(email)) {
+        return res.status(400).json({success: false, message: "At least one field is required"});
+    }
+
+    try {
+        const exists = await User.findOne({email, _id: {$ne: req.user.id}});
+        if (exists) {
+            return res.status(409).json({success: false, message: "Email already exists"});
+        }
+
+        const user = await User.findByIdAndUpdate(req.user.id, {name, email}, {new: true , runValidators:true, select: "name email"});
+        res.status(200).json({success: true, data: {user: {id: user._id, name: user.name, email: user.email}}});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({success: false, message: "Error updating user", error});
+    }
+}
