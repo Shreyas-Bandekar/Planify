@@ -25,7 +25,7 @@ export async function createUser(req, res) {
     }
     
     try {
-        if(await userModel.findOne({email})) {
+        if(await User.findOne({email})) {
             return res.status(409).json({success: false, message: "Email already exists"});
         }
         const hashed = await bcrypt.hash(password, 10);
@@ -38,3 +38,32 @@ export async function createUser(req, res) {
     }
 }
 
+// Login
+
+export async function loginUser(req, res) {
+    const {email, password} = req.body;
+
+    if(!email || !password) {
+        return res.status(400).json({success: false, message: "All fields are required"});
+    }
+
+    try {
+        const user = await User.findOne({email});
+        if(!user) {
+            return res.status(401).json({success: false, message: "Invalid email or password"});
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if(!isMatch) {
+            return res.status(401).json({success: false, message: "Invalid email or password"});
+        }
+
+        const token = createToken(user._id);
+        res.status(200).json({success: true, data: {token, user: {id: user._id, name: user.name, email: user.email}}});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({success: false, message: "Error logging in", error});
+    }
+}
+
+// Get current user
