@@ -1,6 +1,9 @@
 import userModel from "../models/user.model";
 import validator from "validator";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+
+const JWT_Secret = process.env.JWT_SECRET;
 
 export async function createUser(req, res) {
     const {name, email, password} = req.body;
