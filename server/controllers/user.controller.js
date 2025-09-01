@@ -9,6 +9,7 @@ const TOKEN_EXPIRES = process.env.TOKEN_EXPIRES;
 
 const createToken = (userId) => jwt.sign({userId}, JWT_Secret, {expiresIn: TOKEN_EXPIRES});
 
+// Register
 export async function createUser(req, res) {
     const {name, email, password} = req.body;
 
@@ -39,7 +40,6 @@ export async function createUser(req, res) {
 }
 
 // Login
-
 export async function loginUser(req, res) {
     const {email, password} = req.body;
 
@@ -67,3 +67,15 @@ export async function loginUser(req, res) {
 }
 
 // Get current user
+export async function getCurrentUser(req, res) {
+    try {
+        const user = await User.findById(req.user.id).select("name email");
+        if (!user) {
+            return res.status(404).json({success: false, message: "User not found"});
+        }
+        res.status(200).json({success: true, data: {user: {id: user._id, name: user.name, email: user.email}}});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({success: false, message: "Error fetching user", error});  
+    }
+}
