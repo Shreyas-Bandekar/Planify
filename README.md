@@ -16,6 +16,6 @@ Planify is a modern and minimal **Task Manager Web App** that helps you stay pro
 ---
 
 ## 🛠 Tech Stack  
-- **Frontend:** HTML, CSS, JavaScript (or React if used)  
-- **Backend:** Node.js + Express *(optional if extended)*  
-- **Database:** MongoDB / LocalStorage  
+- **Frontend:** React  
+- **Backend:** Node.js + Express 
+- **Database:** MongoDB 
