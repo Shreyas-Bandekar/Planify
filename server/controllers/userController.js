@@ -1,4 +1,4 @@
-import userModel from "../models/user.model";
+import userModel from "../models/userModel.js";
 import validator from "validator";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -10,7 +10,7 @@ const TOKEN_EXPIRES = process.env.TOKEN_EXPIRES;
 const createToken = (userId) => jwt.sign({userId}, JWT_Secret, {expiresIn: TOKEN_EXPIRES});
 
 // Register
-export async function createUser(req, res) {
+export async function registerUser(req, res) {
     const {name, email, password} = req.body;
 
 
