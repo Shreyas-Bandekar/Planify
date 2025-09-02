@@ -102,3 +102,30 @@ export async function updateProfile(req, res) {
     }
 }
 
+// Change password
+export async function changePassword(req, res) {
+    const {currentPassword, newPassword} = req.body;
+    if(!currentPassword || !newPassword || newPassword.length < 8) {
+        return res.status(400).json({success: false, message: "All fields are required and password must be at least 8 characters long"});
+    }
+
+    try {
+        const user = await User.findById(req.user.id).select("password");
+        if(!user) {
+            return res.status(404).json({success: false, message: "User not found"});
+        }
+
+        const isMatch = await bcrypt.compare(currentPassword, user.password);
+        if(!isMatch) {
+            return res.status(401).json({success: false, message: "Invalid current password"});
+        }
+
+        user.password = await bcrypt.hash(newPassword, 10);
+        await user.save();
+
+        res.status(200).json({success: true, message: "Password changed successfully"});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({success: false, message: "Error changing password", error});
+    }
+}
