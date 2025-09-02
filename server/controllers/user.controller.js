@@ -101,3 +101,4 @@ export async function updateProfile(req, res) {
         res.status(500).json({success: false, message: "Error updating user", error});
     }
 }
+
