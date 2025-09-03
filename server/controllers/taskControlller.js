@@ -1,5 +1,6 @@
 import Task from '../models/taskModel.js';
 
+// Create a task
 export const createTask = async (req, res) => {
     try {
         const { title, description, priority, dueDate, completed } = req.body;
@@ -15,5 +16,15 @@ export const createTask = async (req, res) => {
         res.status(201).json(newTask);
     } catch (error) {
         res.status(500).json({ message: "Error creating task", error });
+    }
+}
+
+// Get all tasks for loggedin user
+export const getTasks = async (req, res) => {
+    try {
+        const tasks = await Task.find({ owner: req.user.id });
+        res.status(200).json(tasks);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching tasks", error });
     }
 }
