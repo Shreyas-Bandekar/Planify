@@ -28,3 +28,16 @@ export const getTasks = async (req, res) => {
         res.status(500).json({ message: "Error fetching tasks", error });
     }
 }
+
+// Get single task by id (belong to loggedin user)
+export const getTaskById = async (req, res) => {
+    try {
+        const task = await Task.findOne({ _id: req.params.id, owner: req.user.id });
+        if (!task) {
+            return res.status(404).json({ message: "Task not found" });
+        }
+        res.status(200).json(task);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching task", error });
+    }
+}
