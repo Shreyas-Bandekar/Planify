@@ -41,3 +41,25 @@ export const getTaskById = async (req, res) => {
         res.status(500).json({ message: "Error fetching task", error });
     }
 }
+
+// Update a task
+export const updateTask = async (req, res) => {
+    try {
+        const data = {...req.body};
+        if(data.completed !== undefined){
+            data.completed = data.completed === "yes" || data.completed === true;
+        }
+
+        const updated = await Task.findOneAndUpdate(
+            { _id: req.params.id, owner: req.user.id },
+            data,
+            { new: true }
+        );
+        if (!updated) {
+            return res.status(404).json({ message: "Task not found" });
+        }
+        res.status(200).json(updated);
+    } catch (error) {
+        res.status(500).json({ message: "Error updating task", error });
+    }
+}
