@@ -1,11 +1,11 @@
-
+import Navbar from "./components/Navbar"
 
 function App() {
   
 
   return (
     <>
-      <h1 className='underline text-4xl font-bold'>Hello</h1>
+      <Navbar />
     </>
   )
 }
