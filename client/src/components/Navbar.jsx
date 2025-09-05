@@ -32,8 +32,8 @@ const Navbar = () => {
 
     const handleLogout = () => {
         // Add logout logic here
-        setMenuOpen(false);
-        navigate('/login');
+        setMenuOpen(false)
+        onLogout();
     };
 
     return (
