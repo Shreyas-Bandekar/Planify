@@ -37,8 +37,13 @@ function App() {
   };
 
   const ProtectedLayout = () => {
+    useEffect(() => {
+      if (!currentUser) {
+        navigate('/login', { replace: true });
+      }
+    }, [currentUser, navigate]);
+
     if (!currentUser) {
-      navigate('/login', { replace: true });
       return null;
     }
     
