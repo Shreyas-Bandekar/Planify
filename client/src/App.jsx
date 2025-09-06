@@ -37,6 +37,11 @@ function App() {
   };
 
   const ProtectedLayout = () => {
+    if (!currentUser) {
+      navigate('/login', { replace: true });
+      return null;
+    }
+    
     return (
       <Layout user={currentUser} onLogout={handleLogout} >
         <Outlet />

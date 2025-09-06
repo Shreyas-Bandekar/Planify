@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 const JWT_Secret = process.env.JWT_SECRET;
 const TOKEN_EXPIRES = process.env.TOKEN_EXPIRES;
 
-const createToken = (userId) => jwt.sign({userId}, JWT_Secret, {expiresIn: TOKEN_EXPIRES});
+const createToken = (userId) => jwt.sign({id: userId}, JWT_Secret, {expiresIn: TOKEN_EXPIRES || '7d'});
 
 // Register
 export async function registerUser(req, res) {
