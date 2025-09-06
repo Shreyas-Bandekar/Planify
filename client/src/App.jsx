@@ -3,6 +3,7 @@ import { Routes, Route, useNavigate, Outlet } from "react-router-dom";
 import Layout from "./components/Layout";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import SharedTasks from "./pages/SharedTasks";
 
 function App() {
   const navigate = useNavigate();
@@ -57,6 +58,7 @@ function App() {
   return (
     <Routes>
       <Route path="/login" element={<Login onAuth={handleAuth} />} />
+      <Route path="/shared/:shareId" element={<SharedTasks />} />
       <Route path="/" element={<ProtectedLayout />}>
         <Route index element={<Dashboard />} />
       </Route>

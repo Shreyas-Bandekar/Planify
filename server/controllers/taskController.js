@@ -76,3 +76,47 @@ export const deleteTask = async (req, res) => {
         res.status(500).json({ message: "Error deleting task", error });
     }
 }
+
+// Bulk create tasks (for import functionality)
+export const bulkCreateTasks = async (req, res) => {
+    try {
+        const { tasks } = req.body;
+        if (!Array.isArray(tasks) || tasks.length === 0) {
+            return res.status(400).json({ message: "Tasks array is required" });
+        }
+
+        const tasksWithOwner = tasks.map(task => ({
+            ...task,
+            owner: req.user.id
+        }));
+
+        const createdTasks = await Task.insertMany(tasksWithOwner);
+        res.status(201).json({ 
+            message: `Successfully created ${createdTasks.length} tasks`,
+            tasks: createdTasks 
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Error creating tasks", error });
+    }
+}
+
+// Get task statistics
+export const getTaskStats = async (req, res) => {
+    try {
+        const tasks = await Task.find({ owner: req.user.id });
+        const stats = {
+            total: tasks.length,
+            completed: tasks.filter(t => t.completed).length,
+            pending: tasks.filter(t => !t.completed).length,
+            overdue: tasks.filter(t => new Date(t.dueDate) < new Date() && !t.completed).length,
+            byPriority: {
+                high: tasks.filter(t => t.priority === 'high').length,
+                medium: tasks.filter(t => t.priority === 'medium').length,
+                low: tasks.filter(t => t.priority === 'low').length
+            }
+        };
+        res.status(200).json(stats);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching statistics", error });
+    }
+}

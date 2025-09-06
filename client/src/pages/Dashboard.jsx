@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Plus, Calendar, Clock, Check, Sparkles, TrendingUp, Target } from 'lucide-react';
+import { Plus, Calendar, Clock, Check, Sparkles, TrendingUp, Target, Database } from 'lucide-react';
 import TaskForm from '../components/TaskForm';
 import TaskCard from '../components/TaskCard';
+import DataManager from '../components/DataManager';
 
 const Dashboard = () => {
     const [tasks, setTasks] = useState([]);
@@ -9,6 +10,7 @@ const Dashboard = () => {
     const [showForm, setShowForm] = useState(false);
     const [editingTask, setEditingTask] = useState(null);
     const [filter, setFilter] = useState('all');
+    const [showDataManager, setShowDataManager] = useState(false);
 
     useEffect(() => {
         fetchTasks();
@@ -102,6 +104,31 @@ const Dashboard = () => {
         await handleUpdateTask(taskId, { completed: !completed });
     };
 
+    const handleImportTasks = async (importedTasks) => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch('http://localhost:4000/api/task/bulk', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify({ tasks: importedTasks }),
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                setTasks([...result.tasks, ...tasks]);
+                alert(`Successfully imported ${result.tasks.length} tasks!`);
+            } else {
+                throw new Error('Failed to import tasks');
+            }
+        } catch (error) {
+            console.error('Error importing tasks:', error);
+            alert('Error importing tasks. Please try again.');
+        }
+    };
+
     const filteredTasks = tasks.filter(task => {
         if (filter === 'completed') return task.completed;
         if (filter === 'pending') return !task.completed;
@@ -147,15 +174,26 @@ const Dashboard = () => {
                         </div>
                         <p className="text-blue-100 text-lg">Stay organized and achieve your goals ✨</p>
                     </div>
-                    <button
-                        onClick={() => setShowForm(true)}
-                        className="group relative bg-white/20 backdrop-blur-sm border border-white/30 text-white px-6 py-3 rounded-2xl hover:bg-white/30 transition-all duration-300 hover:scale-105 hover:shadow-xl"
-                    >
-                        <div className="flex items-center space-x-2">
-                            <Plus className="h-5 w-5 group-hover:rotate-90 transition-transform duration-300" />
-                            <span className="font-semibold">Add Task</span>
-                        </div>
-                    </button>
+                    <div className="flex items-center space-x-3">
+                        <button
+                            onClick={() => setShowDataManager(true)}
+                            className="group relative bg-white/10 backdrop-blur-sm border border-white/20 text-white px-4 py-3 rounded-2xl hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                        >
+                            <div className="flex items-center space-x-2">
+                                <Database className="h-5 w-5 group-hover:rotate-12 transition-transform duration-300" />
+                                <span className="font-medium">Data</span>
+                            </div>
+                        </button>
+                        <button
+                            onClick={() => setShowForm(true)}
+                            className="group relative bg-white/20 backdrop-blur-sm border border-white/30 text-white px-6 py-3 rounded-2xl hover:bg-white/30 transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                        >
+                            <div className="flex items-center space-x-2">
+                                <Plus className="h-5 w-5 group-hover:rotate-90 transition-transform duration-300" />
+                                <span className="font-semibold">Add Task</span>
+                            </div>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -232,12 +270,28 @@ const Dashboard = () => {
             </div>
 
             {filteredTasks.length === 0 ? (
-                <div className="text-center py-12">
-                    <Calendar className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">No tasks found</h3>
-                    <p className="text-gray-600">
-                        {filter === 'all' ? 'Create your first task to get started!' : `No ${filter} tasks.`}
+                <div className="text-center py-16">
+                    <div className="relative mx-auto w-24 h-24 mb-6">
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 rounded-3xl opacity-20 animate-pulse"></div>
+                        <div className="relative bg-gradient-to-r from-blue-100 to-purple-100 rounded-3xl p-6 flex items-center justify-center">
+                            <Calendar className="h-12 w-12 text-blue-500" />
+                        </div>
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                        {filter === 'all' ? '🎯 Ready to get productive?' : `No ${filter} tasks yet`}
+                    </h3>
+                    <p className="text-gray-600 text-lg mb-6">
+                        {filter === 'all' ? 'Create your first task and start your journey!' : `You have no ${filter} tasks at the moment.`}
                     </p>
+                    {filter === 'all' && (
+                        <button
+                            onClick={() => setShowForm(true)}
+                            className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-2xl hover:from-blue-700 hover:to-purple-700 transition-all duration-200 hover:scale-105 hover:shadow-xl"
+                        >
+                            <Plus className="h-5 w-5" />
+                            <span className="font-semibold">Create Your First Task</span>
+                        </button>
+                    )}
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -264,6 +318,15 @@ const Dashboard = () => {
                         setShowForm(false);
                         setEditingTask(null);
                     }}
+                />
+            )}
+
+            {showDataManager && (
+                <DataManager
+                    tasks={tasks}
+                    onClose={() => setShowDataManager(false)}
+                    onImport={handleImportTasks}
+                    onRefresh={fetchTasks}
                 />
             )}
         </div>
