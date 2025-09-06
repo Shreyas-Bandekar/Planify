@@ -54,17 +54,34 @@ const Login = ({ onAuth }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow-md">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            {isLogin ? 'Sign in to Planify' : 'Create your account'}
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
+        <div className="absolute top-40 left-40 w-80 h-80 bg-indigo-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
+      </div>
+      
+      <div className="relative max-w-md w-full space-y-8 p-8 bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20">
+        {/* Logo and header */}
+        <div className="text-center">
+          <div className="mx-auto w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center mb-4 animate-pulse-glow">
+            <span className="text-2xl">✨</span>
+          </div>
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+            {isLogin ? 'Welcome Back!' : 'Join Planify'}
           </h2>
+          <p className="mt-2 text-gray-600">
+            {isLogin ? 'Sign in to continue your productivity journey' : 'Create your account and start organizing'}
+          </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-              {error}
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-2xl backdrop-blur-sm animate-in slide-in-from-top duration-300">
+              <div className="flex items-center space-x-2">
+                <span className="text-red-500">⚠️</span>
+                <span>{error}</span>
+              </div>
             </div>
           )}
           
@@ -119,19 +136,19 @@ const Login = ({ onAuth }) => {
             <button
               type="submit"
               disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+              className="group relative w-full flex justify-center py-4 px-6 border border-transparent text-sm font-semibold rounded-2xl text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 transition-all duration-200 hover:scale-105 hover:shadow-xl"
             >
-              {loading ? 'Loading...' : (isLogin ? 'Sign in' : 'Sign up')}
+              {loading ? '⏳ Loading...' : (isLogin ? '🚀 Sign in' : '✨ Sign up')}
             </button>
           </div>
 
           <div className="text-center">
             <button
               type="button"
-              className="text-blue-600 hover:text-blue-500"
+              className="text-blue-600 hover:text-purple-600 font-medium transition-colors duration-200 hover:scale-105 transform"
               onClick={() => setIsLogin(!isLogin)}
             >
-              {isLogin ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
+              {isLogin ? "Don't have an account? ✨ Sign up" : "Already have an account? 🚀 Sign in"}
             </button>
           </div>
         </form>

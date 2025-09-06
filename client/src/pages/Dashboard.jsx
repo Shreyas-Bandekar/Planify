@@ -116,8 +116,16 @@ const Dashboard = () => {
 
     if (loading) {
         return (
-            <div className="flex justify-center items-center h-64">
-                <div className="text-lg">Loading tasks...</div>
+            <div className="flex flex-col justify-center items-center h-64 space-y-4">
+                <div className="relative">
+                    <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center animate-pulse-glow">
+                        <Sparkles className="h-8 w-8 text-white animate-spin" />
+                    </div>
+                </div>
+                <div className="text-center">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Loading your tasks...</h3>
+                    <p className="text-gray-600">Getting everything ready for you ✨</p>
+                </div>
             </div>
         );
     }

@@ -90,26 +90,26 @@ const TaskForm = ({ task, onSubmit, onClose }) => {
             />
           </div>
 
-          <div>
-            <label htmlFor="priority" className="block text-sm font-medium text-gray-700 mb-1">
-              Priority
+          <div className="space-y-2">
+            <label htmlFor="priority" className="block text-sm font-semibold text-gray-700">
+              🎯 Priority Level
             </label>
             <select
               id="priority"
               name="priority"
               value={formData.priority}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-4 py-3 bg-gray-50/50 border border-gray-200 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all duration-200 hover:shadow-md"
             >
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
+              <option value="low">🌱 Low Priority</option>
+              <option value="medium">⚡ Medium Priority</option>
+              <option value="high">🔥 High Priority</option>
             </select>
           </div>
 
-          <div>
-            <label htmlFor="dueDate" className="block text-sm font-medium text-gray-700 mb-1">
-              Due Date *
+          <div className="space-y-2">
+            <label htmlFor="dueDate" className="block text-sm font-semibold text-gray-700">
+              📅 Due Date *
             </label>
             <input
               type="date"
@@ -118,7 +118,7 @@ const TaskForm = ({ task, onSubmit, onClose }) => {
               required
               value={formData.dueDate}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-4 py-3 bg-gray-50/50 border border-gray-200 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all duration-200 hover:shadow-md"
             />
           </div>
 
@@ -138,20 +138,20 @@ const TaskForm = ({ task, onSubmit, onClose }) => {
             </div>
           )}
 
-          <div className="flex justify-end space-x-3 pt-4">
+          <div className="flex justify-end space-x-3 pt-6">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="px-6 py-3 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-2xl transition-all duration-200 hover:scale-105"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+              className="px-6 py-3 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-2xl transition-all duration-200 hover:scale-105 hover:shadow-lg disabled:opacity-50 disabled:hover:scale-100"
             >
-              {loading ? 'Saving...' : (task ? 'Update Task' : 'Create Task')}
+              {loading ? '⏳ Saving...' : (task ? '✅ Update Task' : '🚀 Create Task')}
             </button>
           </div>
         </form>
