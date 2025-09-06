@@ -12,7 +12,7 @@ const Layout = ({ user, onLogout, children }) => {
       </div>
       
       <Navbar user={user} onLogout={onLogout} />
-      <main className="relative container mx-auto px-4 py-8">
+      <main className="relative container mx-auto px-3 sm:px-4 py-4 sm:py-6 lg:py-8">
         {children}
       </main>
     </div>

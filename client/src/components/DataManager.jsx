@@ -189,45 +189,45 @@ const DataManager = ({ tasks, onClose, onImport, onRefresh }) => {
   ];
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-in fade-in duration-300">
-      <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden border border-white/20 animate-in zoom-in-95 duration-300">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 z-50 animate-in fade-in duration-300">
+      <div className="bg-white/95 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-2xl max-w-2xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-hidden border border-white/20 animate-in zoom-in-95 duration-300">
         
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6">
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-4 sm:p-6">
           <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-2xl font-bold text-white">📊 Data Management</h2>
-              <p className="text-blue-100 text-sm mt-1">Export, import, backup and share your tasks</p>
+            <div className="flex-1 min-w-0">
+              <h2 className="text-lg sm:text-2xl font-bold text-white truncate">📊 Data Management</h2>
+              <p className="text-blue-100 text-xs sm:text-sm mt-1">Export, import, backup and share your tasks</p>
             </div>
             <button
               onClick={onClose}
-              className="text-white/80 hover:text-white hover:bg-white/20 p-2 rounded-xl transition-all duration-200 hover:scale-110"
+              className="text-white/80 hover:text-white hover:bg-white/20 p-1.5 sm:p-2 rounded-lg sm:rounded-xl transition-all duration-200 hover:scale-110 flex-shrink-0 ml-2"
             >
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b border-gray-200 bg-gray-50">
+        <div className="flex border-b border-gray-200 bg-gray-50 overflow-x-auto">
           {tabs.map(({ id, label, icon: Icon }) => (
             <button
               key={id}
               onClick={() => setActiveTab(id)}
-              className={`flex-1 flex items-center justify-center space-x-2 py-4 px-6 font-medium transition-all duration-200 ${
+              className={`flex-1 flex items-center justify-center space-x-1 sm:space-x-2 py-3 sm:py-4 px-3 sm:px-6 font-medium transition-all duration-200 whitespace-nowrap ${
                 activeTab === id
                   ? 'bg-white text-blue-600 border-b-2 border-blue-600'
                   : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
               }`}
             >
               <Icon className="w-4 h-4" />
-              <span>{label}</span>
+              <span className="text-sm sm:text-base">{label}</span>
             </button>
           ))}
         </div>
 
         {/* Content */}
-        <div className="p-6 space-y-6 max-h-96 overflow-y-auto">
+        <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 max-h-80 sm:max-h-96 overflow-y-auto">
           
           {/* Export Tab */}
           {activeTab === 'export' && (
