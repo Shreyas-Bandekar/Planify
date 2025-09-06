@@ -1,8 +1,8 @@
-import Navbar from "./components/Navbar"
-import { use, useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Routes, Route, useNavigate, Outlet } from "react-router-dom";
 import Layout from "./components/Layout";
-import { Divide } from "lucide-react";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   const navigate = useNavigate();
@@ -37,22 +37,20 @@ function App() {
   };
 
   const ProtectedLayout = () => {
-    <Layout user={currentUser} onLogout={handleLogout} >
-      <Outlet />
-    </Layout>
-  }
+    return (
+      <Layout user={currentUser} onLogout={handleLogout} >
+        <Outlet />
+      </Layout>
+    );
+  };
 
   return (
-    <>
-      <Routes>
-        
-        <Route path="/login" element={<div className="fixed inset-0 flex items-center justify-center bg-gray-100">
-
-        </div> }/>
-        <Route path="/" element={<Layout />} />
-
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/login" element={<Login onAuth={handleAuth} />} />
+      <Route path="/" element={<ProtectedLayout />}>
+        <Route index element={<Dashboard />} />
+      </Route>
+    </Routes>
   )
 }
 
