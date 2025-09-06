@@ -34,24 +34,33 @@ const TaskForm = ({ task, onSubmit, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between p-6 border-b">
-          <h2 className="text-xl font-semibold text-gray-900">
-            {task ? 'Edit Task' : 'Create New Task'}
-          </h2>
-          <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
-          >
-            <X className="w-6 h-6" />
-          </button>
-        </div>
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-in fade-in duration-300">
+      <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto border border-white/20 animate-in zoom-in-95 duration-300">
+        <div className="relative">
+          {/* Gradient header */}
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 rounded-t-3xl">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-bold text-white">
+                  {task ? '✏️ Edit Task' : '✨ Create New Task'}
+                </h2>
+                <p className="text-blue-100 text-sm mt-1">
+                  {task ? 'Update your task details' : 'Add a new task to your list'}
+                </p>
+              </div>
+              <button
+                onClick={onClose}
+                className="text-white/80 hover:text-white hover:bg-white/20 p-2 rounded-xl transition-all duration-200 hover:scale-110"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+          </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          <div>
-            <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
-              Title *
+        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+          <div className="space-y-2">
+            <label htmlFor="title" className="block text-sm font-semibold text-gray-700">
+              📝 Task Title *
             </label>
             <input
               type="text"
@@ -60,14 +69,14 @@ const TaskForm = ({ task, onSubmit, onClose }) => {
               required
               value={formData.title}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Enter task title"
+              className="w-full px-4 py-3 bg-gray-50/50 border border-gray-200 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all duration-200 hover:shadow-md"
+              placeholder="What needs to be done?"
             />
           </div>
 
-          <div>
-            <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
-              Description *
+          <div className="space-y-2">
+            <label htmlFor="description" className="block text-sm font-semibold text-gray-700">
+              📄 Description *
             </label>
             <textarea
               id="description"
@@ -76,8 +85,8 @@ const TaskForm = ({ task, onSubmit, onClose }) => {
               rows={3}
               value={formData.description}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Enter task description"
+              className="w-full px-4 py-3 bg-gray-50/50 border border-gray-200 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all duration-200 hover:shadow-md resize-none"
+              placeholder="Describe your task in detail..."
             />
           </div>
 
