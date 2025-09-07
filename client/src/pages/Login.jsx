@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API_ENDPOINTS } from '../config/api';
 
 const Login = ({ onAuth }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -25,12 +26,12 @@ const Login = ({ onAuth }) => {
     setError('');
 
     try {
-      const endpoint = isLogin ? '/api/user/login' : '/api/user/register';
+      const endpoint = isLogin ? API_ENDPOINTS.LOGIN : API_ENDPOINTS.REGISTER;
       const payload = isLogin 
         ? { email: formData.email, password: formData.password }
         : formData;
 
-      const response = await fetch(`http://localhost:4000${endpoint}`, {
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
