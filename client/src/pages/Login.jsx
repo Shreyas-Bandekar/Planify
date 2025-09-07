@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { API_ENDPOINTS } from '../config/api';
+
+// API Configuration
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
 const Login = ({ onAuth }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -26,7 +28,7 @@ const Login = ({ onAuth }) => {
     setError('');
 
     try {
-      const endpoint = isLogin ? API_ENDPOINTS.LOGIN : API_ENDPOINTS.REGISTER;
+      const endpoint = isLogin ? `${API_BASE_URL}/api/user/login` : `${API_BASE_URL}/api/user/register`;
       const payload = isLogin 
         ? { email: formData.email, password: formData.password }
         : formData;

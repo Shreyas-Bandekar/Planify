@@ -3,7 +3,8 @@ import { Plus, Calendar, Clock, Check, Sparkles, TrendingUp, Target, Database } 
 import TaskForm from '../components/TaskForm';
 import TaskCard from '../components/TaskCard';
 import DataManager from '../components/DataManager';
-// Direct environment variable usage
+
+// API Configuration
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
 const Dashboard = () => {
@@ -21,7 +22,9 @@ const Dashboard = () => {
     const fetchTasks = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(API_ENDPOINTS.TASKS, {
+            console.log('Fetching tasks from:', `${API_BASE_URL}/api/task/gp`);
+            
+            const response = await fetch(`${API_BASE_URL}/api/task/gp`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
@@ -30,6 +33,8 @@ const Dashboard = () => {
             if (response.ok) {
                 const data = await response.json();
                 setTasks(data);
+            } else {
+                console.error('Failed to fetch tasks:', response.status, response.statusText);
             }
         } catch (error) {
             console.error('Error fetching tasks:', error);
@@ -41,7 +46,7 @@ const Dashboard = () => {
     const handleCreateTask = async (taskData) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(API_ENDPOINTS.TASKS, {
+            const response = await fetch(`${API_BASE_URL}/api/task/gp`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -63,7 +68,7 @@ const Dashboard = () => {
     const handleUpdateTask = async (taskId, taskData) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(API_ENDPOINTS.TASK_BY_ID(taskId), {
+            const response = await fetch(`${API_BASE_URL}/api/task/gp/${taskId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -86,7 +91,7 @@ const Dashboard = () => {
         if (window.confirm('Are you sure you want to delete this task?')) {
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch(API_ENDPOINTS.TASK_BY_ID(taskId), {
+                const response = await fetch(`${API_BASE_URL}/api/task/gp/${taskId}`, {
                     method: 'DELETE',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -109,7 +114,7 @@ const Dashboard = () => {
     const handleImportTasks = async (importedTasks) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(API_ENDPOINTS.BULK_TASKS, {
+            const response = await fetch(`${API_BASE_URL}/api/task/bulk`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
