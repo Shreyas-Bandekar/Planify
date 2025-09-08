@@ -72,7 +72,7 @@ const DataManager = ({ tasks, onClose, onImport, onRefresh }) => {
         </body>
       </html>
     `;
-    
+
     printWindow.document.write(htmlContent);
     printWindow.document.close();
     printWindow.focus();
@@ -113,11 +113,11 @@ const DataManager = ({ tasks, onClose, onImport, onRefresh }) => {
 
     setImporting(true);
     const reader = new FileReader();
-    
+
     reader.onload = (e) => {
       try {
         let importedTasks = [];
-        
+
         if (file.type === 'application/json' || file.name.endsWith('.json')) {
           // JSON backup file
           const backup = JSON.parse(e.target.result);
@@ -126,7 +126,7 @@ const DataManager = ({ tasks, onClose, onImport, onRefresh }) => {
           // CSV file
           const lines = e.target.result.split('\n');
           const headers = lines[0].split(',');
-          
+
           importedTasks = lines.slice(1).filter(line => line.trim()).map(line => {
             const values = line.split(',').map(val => val.replace(/"/g, '').trim());
             return {
@@ -168,7 +168,7 @@ const DataManager = ({ tasks, onClose, onImport, onRefresh }) => {
       })),
       sharedAt: new Date().toISOString()
     };
-    
+
     // In a real app, you'd send this to your backend and get a share ID
     const encoded = btoa(JSON.stringify(shareData));
     const url = `${window.location.origin}/shared/${encoded}`;
@@ -191,7 +191,7 @@ const DataManager = ({ tasks, onClose, onImport, onRefresh }) => {
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 z-50 animate-in fade-in duration-300">
       <div className="bg-white/95 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-2xl max-w-2xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-hidden border border-white/20 animate-in zoom-in-95 duration-300">
-        
+
         {/* Header */}
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-4 sm:p-6">
           <div className="flex items-center justify-between">
@@ -214,11 +214,10 @@ const DataManager = ({ tasks, onClose, onImport, onRefresh }) => {
             <button
               key={id}
               onClick={() => setActiveTab(id)}
-              className={`flex-1 flex items-center justify-center space-x-1 sm:space-x-2 py-3 sm:py-4 px-3 sm:px-6 font-medium transition-all duration-200 whitespace-nowrap ${
-                activeTab === id
+              className={`flex-1 flex items-center justify-center space-x-1 sm:space-x-2 py-3 sm:py-4 px-3 sm:px-6 font-medium transition-all duration-200 whitespace-nowrap ${activeTab === id
                   ? 'bg-white text-blue-600 border-b-2 border-blue-600'
                   : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-              }`}
+                }`}
             >
               <Icon className="w-4 h-4" />
               <span className="text-sm sm:text-base">{label}</span>
@@ -228,7 +227,7 @@ const DataManager = ({ tasks, onClose, onImport, onRefresh }) => {
 
         {/* Content */}
         <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 max-h-80 sm:max-h-96 overflow-y-auto">
-          
+
           {/* Export Tab */}
           {activeTab === 'export' && (
             <div className="space-y-4">
@@ -236,7 +235,7 @@ const DataManager = ({ tasks, onClose, onImport, onRefresh }) => {
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Export Your Tasks</h3>
                 <p className="text-gray-600">Download your tasks in different formats</p>
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <button
                   onClick={exportToCSV}
@@ -291,9 +290,8 @@ const DataManager = ({ tasks, onClose, onImport, onRefresh }) => {
                 />
                 <label
                   htmlFor="file-import"
-                  className={`inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl hover:from-blue-700 hover:to-purple-700 transition-all duration-200 hover:scale-105 cursor-pointer ${
-                    importing ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
+                  className={`inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl hover:from-blue-700 hover:to-purple-700 transition-all duration-200 hover:scale-105 cursor-pointer ${importing ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
                 >
                   <Upload className="w-4 h-4" />
                   <span>{importing ? 'Importing...' : 'Select File'}</span>
@@ -385,11 +383,10 @@ const DataManager = ({ tasks, onClose, onImport, onRefresh }) => {
                     />
                     <button
                       onClick={copyShareLink}
-                      className={`p-2 rounded-lg transition-all duration-200 ${
-                        copied 
-                          ? 'bg-green-500 text-white' 
+                      className={`p-2 rounded-lg transition-all duration-200 ${copied
+                          ? 'bg-green-500 text-white'
                           : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                      }`}
+                        }`}
                     >
                       {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                     </button>

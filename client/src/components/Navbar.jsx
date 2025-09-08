@@ -20,7 +20,7 @@ const Navbar = ({ user, onLogout }) => {
               <p className="text-xs text-gray-500 -mt-1 hidden sm:block">Task Management</p>
             </div>
           </div>
-          
+
           {user && (
             <div className="flex items-center space-x-2 sm:space-x-4 flex-shrink-0">
               <div className="hidden sm:flex items-center space-x-3 bg-gradient-to-r from-blue-50 to-indigo-50 px-3 sm:px-4 py-2 rounded-xl sm:rounded-2xl border border-blue-100">
@@ -35,7 +35,7 @@ const Navbar = ({ user, onLogout }) => {
                   <p className="text-gray-500 text-xs">Online</p>
                 </div>
               </div>
-              
+
               {/* Mobile user indicator */}
               <div className="sm:hidden relative">
                 <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
@@ -43,7 +43,7 @@ const Navbar = ({ user, onLogout }) => {
                 </div>
                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white"></div>
               </div>
-              
+
               <button
                 onClick={onLogout}
                 className="group flex items-center space-x-1 sm:space-x-2 px-2 py-2 sm:px-4 sm:py-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-xl sm:rounded-2xl transition-all duration-200 hover:scale-105"
