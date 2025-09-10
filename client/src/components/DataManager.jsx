@@ -215,8 +215,8 @@ const DataManager = ({ tasks, onClose, onImport, onRefresh }) => {
               key={id}
               onClick={() => setActiveTab(id)}
               className={`flex-1 flex items-center justify-center space-x-1 sm:space-x-2 py-3 sm:py-4 px-3 sm:px-6 font-medium transition-all duration-200 whitespace-nowrap ${activeTab === id
-                  ? 'bg-white text-blue-600 border-b-2 border-blue-600'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                ? 'bg-white text-blue-600 border-b-2 border-blue-600'
+                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                 }`}
             >
               <Icon className="w-4 h-4" />
@@ -384,8 +384,8 @@ const DataManager = ({ tasks, onClose, onImport, onRefresh }) => {
                     <button
                       onClick={copyShareLink}
                       className={`p-2 rounded-lg transition-all duration-200 ${copied
-                          ? 'bg-green-500 text-white'
-                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        ? 'bg-green-500 text-white'
+                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                         }`}
                     >
                       {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
