@@ -23,7 +23,7 @@ const TaskForm = ({ task, onSubmit, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
+
     try {
       await onSubmit(formData);
     } catch (error) {
