@@ -8,15 +8,15 @@ import SharedTasks from "./pages/SharedTasks";
 function App() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(() => {
-      const stored = localStorage.getItem('currentUser');
-      return stored ? JSON.parse(stored) : null;
+    const stored = localStorage.getItem('currentUser');
+    return stored ? JSON.parse(stored) : null;
   });
 
   useEffect(() => {
     if (currentUser) {
       localStorage.setItem('currentUser', JSON.stringify(currentUser));
     }
-    else{
+    else {
       localStorage.removeItem('currentUser');
     }
   }, [currentUser]);
@@ -47,7 +47,7 @@ function App() {
     if (!currentUser) {
       return null;
     }
-    
+
     return (
       <Layout user={currentUser} onLogout={handleLogout} >
         <Outlet />

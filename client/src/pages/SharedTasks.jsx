@@ -18,7 +18,7 @@ const SharedTasks = () => {
       // Decode the shared data
       const decoded = atob(shareId);
       const data = JSON.parse(decoded);
-      
+
       setShareData(data);
       setTasks(data.tasks || []);
       setLoading(false);
@@ -102,7 +102,7 @@ const SharedTasks = () => {
             <ArrowLeft className="h-4 w-4" />
             <span>Back to Planify</span>
           </Link>
-          
+
           <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 border border-white/20 shadow-xl">
             <div className="flex items-center space-x-3 mb-4">
               <div className="p-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl">
@@ -173,24 +173,22 @@ const SharedTasks = () => {
             {tasks.map((task, index) => {
               const priority = priorityConfig[task.priority];
               const isOverdue = new Date(task.dueDate) < new Date() && !task.completed;
-              
+
               return (
                 <div
                   key={index}
-                  className={`bg-white/80 backdrop-blur-xl rounded-2xl border border-white/20 p-6 shadow-lg hover:shadow-xl transition-all duration-300 ${
-                    task.completed ? 'opacity-75' : ''
-                  }`}
+                  className={`bg-white/80 backdrop-blur-xl rounded-2xl border border-white/20 p-6 shadow-lg hover:shadow-xl transition-all duration-300 ${task.completed ? 'opacity-75' : ''
+                    }`}
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center space-x-3">
-                      <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                        task.completed
+                      <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${task.completed
                           ? 'bg-emerald-500 border-emerald-500 text-white'
                           : 'border-gray-300'
-                      }`}>
+                        }`}>
                         {task.completed && <Check className="w-3 h-3" />}
                       </div>
-                      
+
                       <div className={`flex items-center space-x-1 px-3 py-1 rounded-full text-xs font-semibold border ${priority.colors}`}>
                         <span>{priority.icon}</span>
                         <span className="capitalize">{task.priority}</span>
@@ -198,12 +196,11 @@ const SharedTasks = () => {
                     </div>
                   </div>
 
-                  <h3 className={`font-bold text-gray-900 mb-3 text-lg leading-tight ${
-                    task.completed ? 'line-through text-gray-500' : ''
-                  }`}>
+                  <h3 className={`font-bold text-gray-900 mb-3 text-lg leading-tight ${task.completed ? 'line-through text-gray-500' : ''
+                    }`}>
                     {task.title}
                   </h3>
-                  
+
                   <p className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
                     {task.description}
                   </p>
@@ -215,7 +212,7 @@ const SharedTasks = () => {
                         <span className="font-medium">{formatDate(task.dueDate)}</span>
                       </div>
                     </div>
-                    
+
                     {isOverdue && (
                       <div className="flex items-center space-x-1 text-red-500 bg-red-50 px-2 py-1 rounded-lg">
                         <AlertCircle className="w-4 h-4" />
