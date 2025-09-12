@@ -7,14 +7,14 @@ export const useToast = () => {
   const addToast = useCallback((message, type = 'info', duration = 4000) => {
     const id = generateId();
     const toast = { id, message, type, duration };
-    
+
     setToasts(prev => [...prev, toast]);
-    
+
     // Auto remove toast after duration
     setTimeout(() => {
       removeToast(id);
     }, duration);
-    
+
     return id;
   }, []);
 

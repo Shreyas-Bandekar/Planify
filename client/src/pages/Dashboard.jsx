@@ -23,7 +23,7 @@ const Dashboard = () => {
         try {
             const token = localStorage.getItem('token');
             console.log('Fetching tasks from:', `${API_BASE_URL}/api/task/gp`);
-            
+
             const response = await fetch(`${API_BASE_URL}/api/task/gp`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
