@@ -15,7 +15,7 @@ export const formatDate = (dateString, options = {}) => {
         year: 'numeric',
         ...options,
     };
-    
+
     try {
         return new Date(dateString).toLocaleDateString('en-US', defaultOptions);
     } catch (error) {
@@ -116,15 +116,15 @@ export const downloadFile = (data, filename, type = 'text/plain') => {
     const blob = new Blob([data], { type });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
-    
+
     link.href = url;
     link.download = filename;
     link.style.display = 'none';
-    
+
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    
+
     URL.revokeObjectURL(url);
 };
 
@@ -191,11 +191,11 @@ export const validatePassword = (password) => {
  */
 export const formatFileSize = (bytes) => {
     if (bytes === 0) return '0 Bytes';
-    
+
     const k = 1024;
     const sizes = ['Bytes', 'KB', 'MB', 'GB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    
+
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 };
 
@@ -247,7 +247,7 @@ export const getTaskStats = (tasks = []) => {
                 stats.overdue++;
             }
         }
-        
+
         if (stats.byPriority.hasOwnProperty(task.priority)) {
             stats.byPriority[task.priority]++;
         }
