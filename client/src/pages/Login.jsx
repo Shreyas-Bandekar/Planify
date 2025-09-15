@@ -29,7 +29,7 @@ const Login = ({ onAuth }) => {
 
     try {
       const endpoint = isLogin ? `${API_BASE_URL}/api/user/login` : `${API_BASE_URL}/api/user/register`;
-      const payload = isLogin 
+      const payload = isLogin
         ? { email: formData.email, password: formData.password }
         : formData;
 
@@ -64,7 +64,7 @@ const Login = ({ onAuth }) => {
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
         <div className="absolute top-40 left-40 w-80 h-80 bg-indigo-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
       </div>
-      
+
       <div className="relative max-w-md w-full space-y-8 p-8 bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20">
         {/* Logo and header */}
         <div className="text-center">
@@ -87,7 +87,7 @@ const Login = ({ onAuth }) => {
               </div>
             </div>
           )}
-          
+
           {!isLogin && (
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
