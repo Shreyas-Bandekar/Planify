@@ -45,8 +45,8 @@ const TaskCard = ({ task, onEdit, onDelete, onToggleComplete }) => {
             <button
               onClick={onToggleComplete}
               className={`relative w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 flex items-center justify-center transition-all duration-300 hover:scale-110 flex-shrink-0 ${task.completed
-                  ? 'bg-gradient-to-r from-emerald-500 to-green-500 border-emerald-500 text-white shadow-lg shadow-emerald-200'
-                  : 'border-gray-300 hover:border-emerald-500 hover:shadow-md'
+                ? 'bg-gradient-to-r from-emerald-500 to-green-500 border-emerald-500 text-white shadow-lg shadow-emerald-200'
+                : 'border-gray-300 hover:border-emerald-500 hover:shadow-md'
                 }`}
             >
               {task.completed && <Check className="w-2 h-2 sm:w-3 sm:h-3" />}
