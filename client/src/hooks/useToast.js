@@ -9,12 +9,10 @@ export const useToast = () => {
     const toast = { id, message, type, duration };
 
     setToasts(prev => [...prev, toast]);
-
     // Auto remove toast after duration
     setTimeout(() => {
       removeToast(id);
     }, duration);
-
     return id;
   }, []);
 
