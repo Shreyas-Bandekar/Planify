@@ -1,15 +1,15 @@
 import mongoose from "mongoose";
 
-const taskSchema = new mongoose.Schema({    
-    title:{
+const taskSchema = new mongoose.Schema({
+    title: {
         type: String,
-        required: true  
+        required: true
     },
     description: {
         type: String,
         required: true
     },
-    priority:{
+    priority: {
         type: String,
         enum: ["low", "medium", "high"],
         default: "low"
@@ -18,7 +18,7 @@ const taskSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    owner:{
+    owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
