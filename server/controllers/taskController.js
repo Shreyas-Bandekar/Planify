@@ -45,8 +45,8 @@ export const getTaskById = async (req, res) => {
 // Update a task
 export const updateTask = async (req, res) => {
     try {
-        const data = {...req.body};
-        if(data.completed !== undefined){
+        const data = { ...req.body };
+        if (data.completed !== undefined) {
             data.completed = data.completed === "yes" || data.completed === true;
         }
 
@@ -91,9 +91,9 @@ export const bulkCreateTasks = async (req, res) => {
         }));
 
         const createdTasks = await Task.insertMany(tasksWithOwner);
-        res.status(201).json({ 
+        res.status(201).json({
             message: `Successfully created ${createdTasks.length} tasks`,
-            tasks: createdTasks 
+            tasks: createdTasks
         });
     } catch (error) {
         res.status(500).json({ message: "Error creating tasks", error });
